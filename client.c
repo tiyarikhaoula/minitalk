@@ -9,37 +9,41 @@
 /*   Updated: 2024/05/04 16:37:15 by ktiyari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minitalk.h" 
+#include "minitalk.h"
 
-int send_signal(int pid, char c)
+void	send_signal(int pid, char c)
 {
-    int shift;
+	int	i;
 
-    shift = 7;
-    while (shift > 0)
-    {
-        if((msg >> i) & 1)
-    }
+	i = 7;
+	while (i >= 0)
+	{
+		if ((c >> i) & 1)
+			kill(pid, SIGUSR1);
+		else
+			kill(pid, SIGUSR2);
+		usleep(400);
+		i--;
+	}
 }
 
-int main(int argc, char* argv[])
+int	main(int argc, char *argv[])
 {
-    char    *msg;
-    int     pid;
-    int     i;
+	char	*msg;
+	int		pid;
+	int		i;
 
-    i = 0;
-    if (argc != 3 || !ft_isdigit(pid))
+	if (argc != 3 || !ft_isdigit(argv[1]))
 	{
-		ft_printf("\nError accured! Either too muh arguments or invalid PID\n");
+		printf("\nError accured! Either too muh arguments or invalid PID\n");
 		return (0);
 	}
-    msg = argv[2];
-    pid = ft_atoi(argv[1]);
-    
-    while(!msg)
-    {
-        send_signal(pid, msg[i]);
-        i++;
-    }
+	pid = ft_atoi(argv[1]);
+	msg = argv[2];
+	i = 0;
+	while (msg[i])
+	{
+		send_signal(pid, msg[i]);
+		i++;
+	}
 }

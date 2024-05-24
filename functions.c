@@ -9,17 +9,17 @@
 /*   Updated: 2024/05/04 20:34:46 by ktiyari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "minitalk.h" 
+#include "minitalk.h"
 
 int	ft_isdigit(char *str)
 {
 	while (*str)
-    {
-        if (*str < '0' || *str > '9')
-            return 0; 
-        str++;
-    }
-    return 1;
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
 void	ft_putstr(char *s)
@@ -46,7 +46,7 @@ int	ft_atoi(const char *str)
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
 	if (str[i] == '+')
-	i++;
+		i++;
 	else if (str[i] == '-')
 	{
 		sign *= -1;

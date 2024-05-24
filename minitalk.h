@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                           :+:      :+:    :+:   */
+/*   minitalk.h                                           :+:      :+:    :+: */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktiyari <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,15 @@
 #ifndef MINITALK_H
 # define MINITALK_H
 
-# include <unistd.h>
-# include <stdlib.h>
+# include <signal.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-
-
-
-
+void	send_signal(int pid, char c);
+void	sighandler(int sig);
+int		ft_isdigit(char *str);
+void	ft_putstr(char *s);
+int		ft_atoi(const char *str);
 
 #endif
