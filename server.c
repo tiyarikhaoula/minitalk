@@ -20,24 +20,37 @@ void	sighandler(int sig)
 	if (sig == SIGUSR1)
 		byte |= 1;
 	len++;
-	if (len == 8)
+	if (byte && len == 8)
 	{
 		write(1, &byte, 1);
 		byte = 0;
 		len = 0;
 	}
+	else if (!byte && len == 8)
+	{
+		write(1, "\n", 1);
+		byte = 0;
+		len = 0;
+	}
 }
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
 	int	pid;
 
-	pid = getpid();
-	printf("Process ID: %d\n", pid);
-	printf("Waiting for messages...\n");
-	signal(SIGUSR1, sighandler);
-	signal(SIGUSR2, sighandler);
-	while (1)
-		pause();
+	*argv = NULL;
+	if (argc == 1)
+	{
+		pid = getpid();
+		ft_putstr("Process ID: ");
+		ft_putnbr(pid);
+		ft_putstr("\nWaiting for messages...\n");
+		signal(SIGUSR1, sighandler);
+		signal(SIGUSR2, sighandler);
+		while (1)
+			pause();
+	}
+	else
+		ft_putstr("error");
 	return (0);
 }

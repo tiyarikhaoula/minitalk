@@ -11,6 +11,42 @@
 /* ************************************************************************** */
 #include "minitalk.h"
 
+void	ft_putstr(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (*s)
+	{
+		write(1, s++, 1);
+		i++;
+	}
+}
+
+void	ft_putnbr(int n)
+{
+	long	nb;
+
+	nb = (long)n;
+	if (nb < 0)
+	{
+		write(1, "-", 1);
+		nb = -nb;
+	}
+	if (nb > 9)
+	{
+		ft_putnbr(nb / 10);
+		nb = nb % 10;
+	}
+	if (nb < 10)
+	{
+		nb += 48;
+		write(1, &nb, 1);
+	}
+}
+
 int	ft_isdigit(char *str)
 {
 	while (*str)
@@ -20,18 +56,6 @@ int	ft_isdigit(char *str)
 		str++;
 	}
 	return (1);
-}
-
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
-		i++;
-	write(1, s, i);
 }
 
 int	ft_atoi(const char *str)

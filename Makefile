@@ -10,26 +10,32 @@
 #                                                                              #
 # **************************************************************************** #
 NAME = minitalk.a
-SRC = 
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -f
 
-OBJ = $(SRC:.c=.o)
+CLIENT = client
+SERVER = server
 
-all: $(NAME)
+CLIENT_SRC = client.c functions.c
+SERVER_SRC = server.c functions.c
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $?
+CLIENT_OBJ = $(CLIENT_SRC:.c=.o)
+SERVER_OBJ = $(SERVER_SRC:.c=.o)
 
-.o: .c
-	$(CC) $(CFLAGS) -c $?
+all: $(CLIENT) $(SERVER)
+
+$(CLIENT): $(CLIENT_OBJ)
+	$(CC) $(CFLAGS) -o $(CLIENT) $(CLIENT_OBJ)
+
+$(SERVER): $(SERVER_OBJ)
+	$(CC) $(CFLAGS) -o $(SERVER) $(SERVER_OBJ)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(CLIENT_OBJ) $(SERVER_OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(CLIENT) $(SERVER)
 
 re: fclean all

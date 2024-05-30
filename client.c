@@ -11,6 +11,24 @@
 /* ************************************************************************** */
 #include "minitalk.h"
 
+void	ft_chek(int pid)
+{
+	if ((pid >= 0 && pid <= 10) || pid >= 2147483647)
+	{
+		ft_putstr("Error! PID not valid.");
+		exit(1);
+	}
+}
+
+void	kill_handling(int pid, int signal)
+{
+	if (kill(pid, signal) == -1)
+	{
+		ft_putstr("Error! Failed to send signal.\n");
+		exit(1);
+	}
+}
+
 void	send_signal(int pid, char c)
 {
 	int	i;
@@ -19,9 +37,9 @@ void	send_signal(int pid, char c)
 	while (i >= 0)
 	{
 		if ((c >> i) & 1)
-			kill(pid, SIGUSR1);
+			kill_handling(pid, SIGUSR1);
 		else
-			kill(pid, SIGUSR2);
+			kill_handling(pid, SIGUSR2);
 		usleep(400);
 		i--;
 	}
@@ -33,12 +51,13 @@ int	main(int argc, char *argv[])
 	int		pid;
 	int		i;
 
-	if (argc != 3 || !ft_isdigit(argv[1]))
+	if (argc != 3 || !ft_isdigit(argv[1]) || argv[2][0] == '\0')
 	{
-		printf("\nError accured! Either too muh arguments or invalid PID\n");
-		return (0);
+		ft_putstr("Error accured!\n");
+		exit(1);
 	}
 	pid = ft_atoi(argv[1]);
+	ft_chek(pid);
 	msg = argv[2];
 	i = 0;
 	while (msg[i])
